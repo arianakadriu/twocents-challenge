@@ -7,7 +7,7 @@ interface PostProps {
   }
   
   const Post = ({ data }: PostProps) => {
-  const { tier, colorClasses, borderColor } = getNetWorthTier(data.author_meta.balance);
+  const { colorClasses, borderColor } = getNetWorthTier(data.author_meta.balance);
 
   return (
     <Link href={`/posts/${data.uuid}`}>

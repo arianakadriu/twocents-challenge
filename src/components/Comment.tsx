@@ -16,7 +16,7 @@ const getPaddingLeftClass = (level: number) => {
 };
 
 const Comment = ({ comment, level = 0 }: { comment: IComment; level?: number }) => {
-    const { tier, colorClasses, borderColor } = getNetWorthTier(comment.author_meta.balance);
+    const { colorClasses, borderColor } = getNetWorthTier(comment.author_meta.balance);
     const paddingLeftClass = level > 0 ? getPaddingLeftClass(level) : "";
 
     return (
