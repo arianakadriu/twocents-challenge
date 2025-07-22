@@ -16,6 +16,7 @@ const Posts = () => {
       try {
         const posts = await fetchTopPosts();
         setPosts(posts);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         setError(err.message);
         setPosts([]);
