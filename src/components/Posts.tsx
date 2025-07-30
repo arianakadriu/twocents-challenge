@@ -34,6 +34,7 @@ const Posts = ({ filter }: PostsProps) => {
           window.scrollTo({ top: y, behavior: "smooth" });
         }
       }, 100);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
       setPosts([]);
