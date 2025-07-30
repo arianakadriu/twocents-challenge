@@ -7,10 +7,10 @@ import BackButton from "@/components/BackButton";
 
 interface PageProps {
     params: Promise<{ id: string }>;
-  }
-  
-  const UserPostsPage = async ({ params }: PageProps) => {
-    const { id: userUuid } = await params; 
+}
+
+const UserPostsPage = async ({ params }: PageProps) => {
+    const { id: userUuid } = await params;
 
     let posts: IPost[] = [];
     try {
@@ -28,18 +28,18 @@ interface PageProps {
     }
 
     const balance = posts[0].author_meta?.balance || 0;
-    const { colorClasses, borderColor } = getNetWorthTier(balance);
+    const { colorClasses, borderColor, textColor } = getNetWorthTier(balance);
 
     return (
         <div className="px-6 md:px-12 py-10">
             <BackButton />
-            <h1 className={`text-xl md:text-2xl font-bold mb-8 flex items-center gap-4`}>
-                <span className="text-amber-500">Posts by </span>
+            <h1 className={`font-bold mb-8 flex items-center gap-4`}>
+                <span className="text-xl md:text-2xl text-amber-500">Posts by </span>
                 <span
-                    className={`inline-flex items-center gap-2 rounded-full px-3 py-1 bg-gradient-to-r ${colorClasses} text-transparent bg-clip-text font-semibold ${borderColor} border-2`}
+                    className={`inline-flex items-center gap-2 rounded-full pl-1 pr-3 py-1 bg-gradient-to-r ${colorClasses} ${textColor} font-semibold ${borderColor} border-2`}
                 >
                     <div
-                        className={`w-5 h-5 flex items-center justify-center rounded-full border-2 text-xs text-transparent bg-clip-text bg-gradient-to-r ${colorClasses} ${borderColor}`}
+                        className={`w-4 h-4 flex items-center justify-center rounded-full border-2 text-xs ${textColor} bg-gradient-to-r ${colorClasses} border-current`}
                     >
                         $
                     </div>

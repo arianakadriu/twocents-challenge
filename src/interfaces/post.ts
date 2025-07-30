@@ -6,7 +6,11 @@ export interface IAuthorMeta {
     arena?: string;
     subscription_type: number;
   }
-  
+
+ interface IPoll {
+    poll: string[];
+ }
+ 
   export interface IPost {
     uuid: string;
     created_at: string; 
@@ -20,7 +24,7 @@ export interface IAuthorMeta {
     text: string;
     topic: string;
     author_meta: IAuthorMeta;
-    post_meta: Record<string, unknown>;
+    post_meta: IPoll;
     post_type: number;
   }
   
