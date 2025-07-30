@@ -4,8 +4,8 @@ import Image from "next/image";
 import { EPostFilter } from "@/enums/EPostFilter";
 
 interface NavBarProps {
-  filter: string;
-  setFilter: (value: string) => void;
+  filter: EPostFilter;
+  setFilter: (value: EPostFilter) => void;
 }
 
 const NavBar = ({ filter, setFilter }: NavBarProps) => {

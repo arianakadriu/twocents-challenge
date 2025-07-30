@@ -50,7 +50,7 @@ const Post = ({ data }: PostProps) => {
           {data.post_meta?.poll && data.post_meta.poll.length > 0 && (
             <div className="inline-flex items-center gap-1 text-amber-400">
               <span className="material-symbols-outlined text-xs">poll</span>
-              <span>Poll</span>
+              <span className="hidden lg:block">Poll</span>
             </div>
           )}
         </div>
