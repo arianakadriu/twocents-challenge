@@ -1,5 +1,7 @@
 import { IPost } from "@/interfaces/post";
 import { IComment } from "@/interfaces/comment";
+import { IPollResults } from "@/interfaces/pollResults";
+import { EPostFilter } from "@/enums/EPostFilter";
 
 interface RpcResponse<T> {
   jsonrpc: string;
@@ -27,14 +29,18 @@ interface UserPostsResult {
   recentPosts: IPost[];
 }
 
+interface PollsResult {
+  results: IPollResults['results'];
+}
+
 const BASE_API_URL = "https://api.twocents.money/prod";
 
-export async function fetchTopPosts(): Promise<IPost[]> {
+export async function fetchTopPosts(filter: EPostFilter): Promise<IPost[]> {
   const body = {
     jsonrpc: "2.0",
     id: "anon",
     method: "/v1/posts/arena",
-    params: { filter: "topAllTime" },
+    params: { filter: filter },
   };
 
   const res = await fetch(BASE_API_URL, {
@@ -135,3 +141,35 @@ export async function fetchUserPosts(userUuid: string): Promise<IPost[]> {
 
   return data.result?.recentPosts || [];
 }
+
+export async function fetchPolls(postUuid: string): Promise<IPollResults['results']> {
+  const body = {
+    jsonrpc: "2.0",
+    id: "anon",
+    method: "/v1/polls/get",
+    params: { post_uuid: postUuid },
+  };
+
+  const res = await fetch(BASE_API_URL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+
+  const data: RpcResponse<PollsResult> = await res.json();
+
+  if (data.error) {
+    throw new Error(data.error.message || "Failed to fetch polls");
+  }
+
+  if (!data.result?.results) {
+    throw new Error("No poll results returned");
+  }
+
+  return data.result.results;
+}
+

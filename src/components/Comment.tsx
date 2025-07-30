@@ -16,7 +16,7 @@ const getPaddingLeftClass = (level: number) => {
 };
 
 const Comment = ({ comment, level = 0 }: { comment: IComment; level?: number }) => {
-    const { colorClasses, borderColor } = getNetWorthTier(comment.author_meta.balance);
+    const { colorClasses, borderColor, textColor } = getNetWorthTier(comment.author_meta.balance);
     const paddingLeftClass = level > 0 ? getPaddingLeftClass(level) : "";
 
     return (
@@ -32,10 +32,10 @@ const Comment = ({ comment, level = 0 }: { comment: IComment; level?: number }) 
             <div className="flex flex-wrap md:flex-nowrap items-center gap-2 md:gap-6 mb-4 text-sm">
                 <Link
                     href={`/users/${comment.author_uuid}`}
-                    className={`inline-flex items-center gap-2 rounded-full px-2 py-1 bg-gradient-to-r ${colorClasses} text-transparent bg-clip-text font-semibold ${borderColor} border-2`}
+                    className={`inline-flex items-center gap-2 rounded-full pl-1 pr-3 py-1 bg-gradient-to-r ${colorClasses} ${textColor} font-semibold ${borderColor} border-2`}
                 >
                     <div
-                        className={`w-5 h-5 flex items-center justify-center rounded-full border-2 text-xs text-transparent bg-clip-text bg-gradient-to-r ${colorClasses} ${borderColor}`}
+                        className={`w-4 h-4 flex items-center justify-center rounded-full border-2 text-xs ${textColor} bg-gradient-to-r ${colorClasses} border-current`}
                     >
                         $
                     </div>
@@ -43,21 +43,23 @@ const Comment = ({ comment, level = 0 }: { comment: IComment; level?: number }) 
                 </Link>
 
                 <div className="inline-flex items-center gap-1 text-[#8a8a8f]">
+                    <span className="material-symbols-outlined">arrow_upward</span>
+                    <span>{comment.upvote_count}</span>
+                </div>
+
+                <div className="inline-flex items-center gap-1 text-[#8a8a8f]">
                     <span className="material-symbols-outlined text-xs">cake</span>
                     <span>{comment.author_meta.age}</span>
                 </div>
 
-                <div className="inline-flex items-center gap-1 text-[#04427d]">
+                <div
+                    className={`inline-flex items-center gap-1 ${comment.author_meta.gender === "F" ? "text-[#781f2f]" : "text-[#04427d]"
+                        }`}
+                >
                     <span className="material-symbols-outlined text-xs">person</span>
                     <span>{comment.author_meta.gender}</span>
                 </div>
 
-                {comment.author_meta.arena && (
-                    <div className="inline-flex items-center gap-1 text-[#8a8a8f]">
-                        <span className="material-symbols-outlined text-xs">near_me</span>
-                        <span>{comment.author_meta.arena}</span>
-                    </div>
-                )}
 
                 <div className="inline-flex items-center gap-1 text-[#8a8a8f] italic text-xs">
                     {timeAgo(comment.created_at)}
