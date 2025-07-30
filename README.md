@@ -22,19 +22,19 @@ This project is a technical challenge for Twocents, built using **Next.js**, **T
   Clicking on a user’s net worth pill navigates to a `/users/[id]` route, showing their recent posts. User data is fetched from:  
   `call("/v1/users/get", { user_uuid: uuid })`.
 
+- **Poll Results**  
+  Fetched poll results for each post:
+  - To see which posts have polls inside, I have added a polls icon in each card, next to the age, gender, location icons. Keep in mind that only posts with filter "New Today" have polls.
+  - Displayed the results with animated bars that transition from 0% → final percentage upon component mount.
+ 
+- **Filtering**
+  Added filtering for posts in the navbar. The options are:
+  - New Today
+  - Top Today
+  - Top All Time
+
 - **Error Handling**  
   Unsupported or missing post types (e.g., polls, undefined formats) don’t break the app. Fallback messaging and default behaviors are included where needed.
-
----
-
-## Incomplete Features
-
-- **Poll Results**  
-  I was unable to complete poll rendering and animation in time.  
-  Specifically:
-  - Fetching results from:  
-    `call("/v1/polls/get", { post_uuid: postUUID })`
-  - Displaying the results with animated bars that transition from 0% → final percentage upon component mount.
 
 ---
 
