@@ -15,8 +15,8 @@ function nestComments(comments: IComment[], parentId: string): IComment[] {
     }));
 }
 
-const PostPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   let post, flatComments, pollResults;
 
   try {
